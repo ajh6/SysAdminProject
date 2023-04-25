@@ -20,11 +20,12 @@ class GUI:
         btn2.grid(row=0, column=1,sticky=tk.W+tk.E )
         self.buttonframe.pack(fill='x')
 
-    
         self.root.mainloop()
     def start_sniffing(self):
         print("start sniffing")
+        #functionality needs to be connected to function.py
     def stop_sniffing(self):
         print("stop sniffing")
+        #functionality needs to be connected to function.py
 
 GUI()
