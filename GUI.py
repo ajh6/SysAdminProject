@@ -1,3 +1,7 @@
+#using Scapy in a python script requires the .py file to be ran in root privilage
+#run this .py file using: sudo python3 filename
+
+
 import tkinter as tk
 import sys
 from tkinter import ttk
@@ -17,9 +21,7 @@ def start_sniffing():
         global should_stop
         global thread
         global subdomain
-
         subdomain = subdomain_entry.get()
-
         if (thread is None) or (not thread.is_alive()):
             should_stop = False
             thread = threading.Thread(target=sniffing).start()
@@ -56,6 +58,7 @@ def sniffing():
 
 def stop_sniffing(packet):
         global should_stop
+  
         return should_stop
 def stop_button():
      global should_stop
@@ -78,7 +81,7 @@ buttonframe.columnconfigure(1, weight=1)
 btn1 = tk.Button(buttonframe, text="Start Sniffing",
                       font=('Arial', 18), command=start_sniffing)
 btn2 = tk.Button(buttonframe, text="End Sniffing",
-                       font=('Arial', 18), command=stop_sniffing)
+                       font=('Arial', 18), command=stop_button)
 btn1.grid(row=0, column=0, sticky=tk.W+tk.E)
 btn2.grid(row=0, column=1, sticky=tk.W+tk.E)
 buttonframe.pack(fill='x')
