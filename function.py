@@ -2,12 +2,12 @@
 #run this .py file using: sudo python3 workspace.py
 
 #Right now this is just a basic 10 line packet sniff to show functionality
-from scapy.all import *
+import scapy.all  as scapy
 
 
 def handler(packet):
     print(packet.summary())
 
+def sniffing():
+    scapy.sniff( prn=handler, store=9)
 
-if __name__ == "__main__":
-    sniff( prn=handler, store=0)
