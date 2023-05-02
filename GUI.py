@@ -1,7 +1,6 @@
 # using Scapy in a python script requires the .py file to be ran in root privilage
 # run this .py file using: sudo python3 filename
 
-
 import tkinter as tk
 import sys
 from tkinter import ttk
