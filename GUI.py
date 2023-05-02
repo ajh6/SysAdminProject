@@ -62,6 +62,7 @@ def handler(packet):
 
             for ip in source_ip_dict:
                 count[ip] += 1
+                
     # this is where we find the specific row in the table and update the frequency
     # Find the item with the name 'Jane'
         item = None
@@ -72,11 +73,11 @@ def handler(packet):
 
         if item is not None:
             treev.selection_set(item)
-        treev.item(treev.selection(), values=(src_ip, count.get(dest_ip)))
+        treev.item(treev.selection(), values=(src_ip, count.get(src_ip)))
 
 
 def sniffing():
-    scapy.sniff(prn=handler, stop_filter=stop_sniffing, count=100)
+    scapy.sniff(prn=handler, stop_filter=stop_sniffing)
     print(count)
 
 
@@ -96,54 +97,39 @@ def stop_button():
         xAxis.append(ip)
         yAxis.append(count[ip])
 
-    plotly.offline.plot({"data": [plotly.graph_objs.Bar(x=xAxis, y=yAxis)]})
+    print("Displaying Graph...")
 
-def stop_button():
-    global should_stop
-    global count
-    should_stop = True
+    plotly.offline.plot({"data": [plotly.graph_objs.Bar(x=xAxis, y=yAxis)]})
 
 
 root = tk.Tk()
 root.configure(bg="yellow")
 root.title("Packet Sniffer")
 root.minsize(800, 800)
-label = tk.Label(
-    root, text="Welcome to the python networking tool", font=('Arial', 18))
+
+label = tk.Label(root, text="Welcome to the python networking tool", font=('Arial', 18))
 label.pack(padx=20, pady=20)
 
 buttonframe = tk.Frame(root, bg="red")
 buttonframe.columnconfigure(0, weight=1)
 buttonframe.columnconfigure(1, weight=1)
 # buttonframe.columnconfigure(2,weight=1)
-btn1 = tk.Button(buttonframe, text="Start Sniffing",
-                 font=('Arial', 18), fg='green',
-                 activebackground='red', command=start_sniffing)
-btn2 = tk.Button(buttonframe, text="End Sniffing",
-                 font=('Arial', 18), fg='green',
-                 activebackground='red', command=stop_button)
 
+btn1 = tk.Button(buttonframe, text="Start Sniffing", font=('Arial', 18), fg='green', activebackground='red', command=start_sniffing)
+btn2 = tk.Button(buttonframe, text="End Sniffing", font=('Arial', 18), fg='green', activebackground='red', command=stop_button)
 btn1.grid(row=0, column=0, sticky=tk.W+tk.E)
 btn2.grid(row=0, column=1, sticky=tk.W+tk.E)
+
 buttonframe.pack(fill='x')
-
-
-# new textbox for count
-textbox = tk.Text(root, height=25, width=25)
-textbox.config(state='disabled')
-textbox.pack()
-
 
 subdomain_entry = tk.Entry(root)
 subdomain_entry.pack(ipady=5, ipadx=50, pady=10)
-treev = ttk.Treeview(root, height=400, column=(
-    "IP", "Frequency"), show='headings')
+treev = ttk.Treeview(root, height=400, column=("IP", "Frequency"), show='headings')
 treev.column('#0', minwidth=10, width=12)
 treev.column("#1")
 treev.column("#2")
 
 treev.heading("#0", text="Type")
-
 treev.heading("#1", text="address")
 treev.heading("#2", text="frequency")
 
