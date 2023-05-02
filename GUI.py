@@ -37,12 +37,8 @@ def handler(packet):
     global subdomain
     global count
     treev
-<<<<<<< HEAD
     # print(packet.show())
     print(packet.summary())
-=======
-    print(packet.show())
->>>>>>> d5b6af987f907039c3e05c0c6f3d42631d74dfcc
 
     if 'IP' in packet:
         src_ip = packet['IP'].src
@@ -52,7 +48,6 @@ def handler(packet):
             if src_ip not in source_ip_dict:
                 source_ip_dict[src_ip].append(dest_ip)
 
-<<<<<<< HEAD
                 row = treev.insert('', tk.END, text=src_ip,
                                    values=(src_ip, count.get(dest_ip)))
                 treev.insert(row, tk.END, text=dest_ip, values=(dest_ip))
@@ -83,30 +78,10 @@ def handler(packet):
 def sniffing():
     scapy.sniff(prn=handler, stop_filter=stop_sniffing, count=100)
     print(count)
-=======
-                row = treev.insert('', index=tk.END, text=src_ip)
-                treev.insert(row, tk.END, text=dest_ip)
-                treev.pack(fill=tk.X)
-        else:
-            if dest_ip not in source_ip_dict[src_ip]:
-                source_ip_dict[src_ip].append(dest_ip)
-                cur_item = treev.focus()
-                if (treev.item(cur_item)['text'] == src_ip):
-                    treev.insert(cur_item, tk.END, text=dest_ip)
-
-    # count calculation
-    for ip in source_ip_dict:
-        count[ip] += 1
-
-
-def sniffing():
-    scapy.sniff(prn=handler, stop_filter=stop_sniffing)
->>>>>>> d5b6af987f907039c3e05c0c6f3d42631d74dfcc
 
 
 def stop_sniffing(packet):
     global should_stop
-<<<<<<< HEAD
     return should_stop
 
 
@@ -120,10 +95,6 @@ def stop_button():
     for ip in count:
         xAxis.append(ip)
         yAxis.append(count[ip])
-=======
-
-    return should_stop
->>>>>>> d5b6af987f907039c3e05c0c6f3d42631d74dfcc
 
     plotly.offline.plot({"data": [plotly.graph_objs.Bar(x=xAxis, y=yAxis)]})
 
@@ -146,18 +117,12 @@ buttonframe.columnconfigure(0, weight=1)
 buttonframe.columnconfigure(1, weight=1)
 # buttonframe.columnconfigure(2,weight=1)
 btn1 = tk.Button(buttonframe, text="Start Sniffing",
-<<<<<<< HEAD
                  font=('Arial', 18), fg='green',
                  activebackground='red', command=start_sniffing)
 btn2 = tk.Button(buttonframe, text="End Sniffing",
                  font=('Arial', 18), fg='green',
                  activebackground='red', command=stop_button)
 
-=======
-                 font=('Arial', 18), command=start_sniffing)
-btn2 = tk.Button(buttonframe, text="End Sniffing",
-                 font=('Arial', 18), command=stop_button)
->>>>>>> d5b6af987f907039c3e05c0c6f3d42631d74dfcc
 btn1.grid(row=0, column=0, sticky=tk.W+tk.E)
 btn2.grid(row=0, column=1, sticky=tk.W+tk.E)
 buttonframe.pack(fill='x')
@@ -177,13 +142,10 @@ treev.column('#0', minwidth=10, width=12)
 treev.column("#1")
 treev.column("#2")
 
-<<<<<<< HEAD
 treev.heading("#0", text="Type")
 
 treev.heading("#1", text="address")
 treev.heading("#2", text="frequency")
 
 
-=======
->>>>>>> d5b6af987f907039c3e05c0c6f3d42631d74dfcc
 root.mainloop()
